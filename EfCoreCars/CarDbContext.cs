@@ -24,6 +24,9 @@ namespace EfCoreCars
                           .AddLogging(builder => builder.AddConsole()
                                                         .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
                            .BuildServiceProvider().GetService<ILoggerFactory>());
+
+            
+
             base.OnConfiguring(optionsBuilder);
         }
 

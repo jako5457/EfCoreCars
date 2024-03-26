@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,10 @@ namespace EfCoreCars.Entities
 {
     public class Car
     {
+        private ILazyLoader _LazyLoader;
+
+        private Manufacturer _Manufacturer;
+
         [Key]
         public int CarIdentifer { get; set; } // Primary
 
@@ -21,7 +26,11 @@ namespace EfCoreCars.Entities
 
         public int ManufacturerId { get; set; }
 
-        public Manufacturer Manufacturer { get; set; } = default!;
+        public Manufacturer Manufacturer 
+        {
+            get => _LazyLoader.Load(this,ref _Manufacturer); 
+            set => _Manufacturer = value; 
+        }
 
     }
 }

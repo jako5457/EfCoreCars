@@ -17,7 +17,8 @@ using (CarDbContext context = new CarDbContext())
 
 //EagerLoading();
 //ExpilicitLoading();
-SelectLoading();
+//SelectLoading();
+Lazyloading();
 
 void EagerLoading()
 {
@@ -78,6 +79,16 @@ void SelectLoading()
                          c.Consumption,
                      })
                      .FirstOrDefault();
+
+        car.Dump();
+    }
+}
+
+void Lazyloading()
+{
+    using (CarDbContext context = new CarDbContext())
+    {
+        var car = context.Cars.FirstOrDefault();
 
         car.Dump();
     }
