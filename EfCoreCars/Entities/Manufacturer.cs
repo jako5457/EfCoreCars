@@ -12,21 +12,14 @@ namespace EfCoreCars.Entities
 {
     public class Manufacturer
     {
-        private ILazyLoader _LazyLoader;
-
-        private Location _Location;
-
         public int ManufacturerId { get; set; }
 
         [StringLength(10)]
         public string Name { get; set;} = string.Empty;
 
-        public List<Car> Cars { get; set; } = default!;
+        public virtual ICollection<Car> Cars { get; set; } = default!;
 
-        public Location Location { 
-            get => _LazyLoader.Load(this, ref _Location); 
-            set => _Location = value; 
-        }
+        public virtual Location Location { get; set; } = null!;
 
     }
 }

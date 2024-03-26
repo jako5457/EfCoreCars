@@ -25,7 +25,7 @@ namespace EfCoreCars
                                                         .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
                            .BuildServiceProvider().GetService<ILoggerFactory>());
 
-            
+            optionsBuilder.UseLazyLoadingProxies(); // <- Add
 
             base.OnConfiguring(optionsBuilder);
         }

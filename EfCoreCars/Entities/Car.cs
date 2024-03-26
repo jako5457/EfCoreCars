@@ -11,9 +11,6 @@ namespace EfCoreCars.Entities
 {
     public class Car
     {
-        private ILazyLoader _LazyLoader;
-
-        private Manufacturer _Manufacturer;
 
         [Key]
         public int CarIdentifer { get; set; } // Primary
@@ -26,11 +23,7 @@ namespace EfCoreCars.Entities
 
         public int ManufacturerId { get; set; }
 
-        public Manufacturer Manufacturer 
-        {
-            get => _LazyLoader.Load(this,ref _Manufacturer); 
-            set => _Manufacturer = value; 
-        }
+        public virtual Manufacturer Manufacturer { get; set; } = null!;
 
     }
 }

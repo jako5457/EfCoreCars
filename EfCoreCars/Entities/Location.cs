@@ -17,6 +17,6 @@ namespace EfCoreCars.Entities
 
         public int ManufacturerId { get; set; }
 
-        public Manufacturer Manufacturer { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
     }
 }
