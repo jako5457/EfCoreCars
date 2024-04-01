@@ -16,6 +16,9 @@ namespace EfCoreCars
 
         public DbSet<Manufacturer> Manufacturer { get; set; }
 
+        public CarDbContext(DbContextOptions<CarDbContext> options) : base(options) { }
+        public CarDbContext() { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=CarDB;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True");

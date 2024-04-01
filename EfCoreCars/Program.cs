@@ -2,6 +2,7 @@
 using Dumpify;
 using EfCoreCars;
 using EfCoreCars.Entities;
+using EfCoreCars.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
