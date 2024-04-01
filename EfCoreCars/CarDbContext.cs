@@ -21,12 +21,17 @@ namespace EfCoreCars
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=CarDB;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True");
-            optionsBuilder.EnableSensitiveDataLogging();
-            optionsBuilder.UseLoggerFactory(new ServiceCollection()
-                          .AddLogging(builder => builder.AddConsole()
-                                                        .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
-                           .BuildServiceProvider().GetService<ILoggerFactory>());
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=localhost;Database=CarDB;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True");
+                optionsBuilder.EnableSensitiveDataLogging();
+                optionsBuilder.UseLoggerFactory(new ServiceCollection()
+                              .AddLogging(builder => builder.AddConsole()
+                                                            .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information))
+                               .BuildServiceProvider().GetService<ILoggerFactory>());
+            }
+            
             base.OnConfiguring(optionsBuilder);
         }
 

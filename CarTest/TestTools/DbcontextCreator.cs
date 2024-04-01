@@ -14,7 +14,9 @@ namespace CarTest.TestTools
         {
             DbContextOptionsBuilder<CarDbContext> builder = new DbContextOptionsBuilder<CarDbContext>();
 
-            builder.UseSqlServer("Server=localhost;Database=CarDB;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True");
+            //builder.UseSqlServer("Server=localhost;Database=CarDB;User Id=SA;Password=P@ssw0rd;TrustServerCertificate=True");
+
+            builder.UseInMemoryDatabase("Database");
 
             return new CarDbContext(builder.Options);
         }
