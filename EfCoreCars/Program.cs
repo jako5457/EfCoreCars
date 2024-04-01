@@ -15,70 +15,21 @@ using (CarDbContext context = new CarDbContext())
 
 }
 
-//EagerLoading();
-//ExpilicitLoading();
-SelectLoading();
+Car Car = null!;
 
-void EagerLoading()
+using (CarDbContext context = new CarDbContext())
 {
-    using (CarDbContext context = new CarDbContext())
-    {
-        //Car car = context.Cars.FirstOrDefault();
+    ICarService carService = new CarService(context);
 
-        #region Include
+    Car car = carService.GetCar(1);
 
-        //Car car = context.Cars
-        //                  .Include(c => c.Manufacturer)
-        //                  .FirstOrDefault();
-
-        #endregion
-
-        #region Deep Include
-
-        Car car = context.Cars
-                            .Include(c => c.Manufacturer)
-                            .ThenInclude(m => m.Location)
-                            .FirstOrDefault();
-
-        #endregion
-
-        car.Dump();
-    }
+    car.Dump();
 }
 
-void ExpilicitLoading()
-{
-    using (CarDbContext context = new CarDbContext())
-    {
-        
-        Manufacturer manufacturer = context.Manufacturer.FirstOrDefault();
-        manufacturer.Dump();
 
-        context.Entry(manufacturer)
-               .Collection(m => m.Cars)
-               .Load();
-        manufacturer.Dump();
 
-        context.Entry(manufacturer)
-                   .Reference(m => m.Location)
-                   .Load();
-        manufacturer.Dump();
-    }
-}
 
-void SelectLoading()
-{
-    using (CarDbContext context = new CarDbContext())
-    {
-        var car = context.Cars
-                     .Select(c => new {
-                         c.Name,
-                         Manufacturer = c.Manufacturer.Name,
-                         ManufacturerLocation = c.Manufacturer.Location.Name,
-                         c.Consumption,
-                     })
-                     .FirstOrDefault();
 
-        car.Dump();
-    }
-}
+
+
+
