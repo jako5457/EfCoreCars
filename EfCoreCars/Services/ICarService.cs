@@ -4,14 +4,14 @@ namespace EfCoreCars.Services
 {
     public interface ICarService
     {
-        Car? GetCar(int id);
+        Task<Car?> GetCarAsync(int id);
 
-        List<Car> GetCars();
+        Task<List<Car>> GetCarsAsync();
 
-        Car CreateCar(Car car);
+        Task<Car> CreateCarAsync(Car car);
 
-        Car UpdateCar(Car car);
+        Task<Car> UpdateCarAsync(Car car);
 
-        void RemoveCar(int id);
+        Task RemoveCarAsync(int id);
     }
 }

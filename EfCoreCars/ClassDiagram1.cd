@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EfCoreCars.Entities.Car">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAgAAAAAAAAAAAAAEAQAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Car.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Manufacturer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EfCoreCars.Entities.Location">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgIAAAAAAAAAAAAAAAAAAQAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Location.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Manufacturer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EfCoreCars.Entities.Manufacturer">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAIAAAQAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Manufacturer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Location" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Cars" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

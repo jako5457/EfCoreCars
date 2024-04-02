@@ -4,14 +4,22 @@ using EfCoreCars;
 using EfCoreCars.Entities;
 using EfCoreCars.Services;
 using Microsoft.EntityFrameworkCore;
+using Xunit.Abstractions;
 
 namespace CarTest
 {
     public class UnitTest1
     {
 
+        private readonly ITestOutputHelper output;
+
+        public UnitTest1(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
-        public void TestCarCount()
+        public async Task TestCarCount()
         {
             // Arrange
             DbcontextCreator.RecreateDatabase();
@@ -21,14 +29,15 @@ namespace CarTest
             ICarService service = new CarService(context);
 
             // Act
-            int CarCount = service.GetCars().Count();
+            var Cars = await service.GetCarsAsync();
+            output.WriteLine(Cars.DumpText());
 
             // Assert
-            Assert.Equal(ExpectedCarCount,CarCount);
+            Assert.Equal(ExpectedCarCount,Cars.Count);
         }
 
         [Fact]
-        public void TestFindCar()
+        public async Task TestFindCar()
         {
             // Arrange
             DbcontextCreator.RecreateDatabase();
@@ -38,14 +47,15 @@ namespace CarTest
             ICarService service = new CarService(context);
 
             // Act
-            var car = service.GetCar(ExpectedCarId);
+            var car = await service.GetCarAsync(ExpectedCarId);
+            output.WriteLine(car.DumpText());
 
             // Assert
             Assert.Equal(ExpectedCarId, car.CarIdentifer);
         }
 
         [Fact]
-        public void TestCreateCar()
+        public async Task TestCreateCar()
         {
             // Arrange
             DbcontextCreator.RecreateDatabase();
@@ -54,8 +64,11 @@ namespace CarTest
             Car CarToCreate = new Car() { Name = "Corolla", Consumption = 1, ManufacturerId = 1 };
             ICarService service = new CarService(context);
 
+            await Task.Delay(500);
+
             // Act
-            var CreatedCar = service.CreateCar(CarToCreate);
+            var CreatedCar = await service.CreateCarAsync(CarToCreate);
+            output.WriteLine(CreatedCar.DumpText());
 
             Assert.NotEqual(default,CreatedCar.CarIdentifer);
             Assert.Equal(CarToCreate.Name, CreatedCar.Name);
@@ -64,7 +77,7 @@ namespace CarTest
         }
 
         [Fact]
-        public void TestUpdateCar()
+        public async Task TestUpdateCar()
         {
             // Arrange
             DbcontextCreator.RecreateDatabase();
@@ -74,9 +87,10 @@ namespace CarTest
             ICarService service = new CarService(context);
 
             // Act
-            service.UpdateCar(CarToUpdate);
+            await service.UpdateCarAsync(CarToUpdate);
 
             Car? UpdatedCar = context.Cars.AsNoTracking().Where(c => c.CarIdentifer == 1).FirstOrDefault();
+            output.WriteLine(UpdatedCar.DumpText());
 
             // Assert
             Assert.NotNull(UpdatedCar);
@@ -87,7 +101,7 @@ namespace CarTest
         }
 
         [Fact]
-        public void TestDeleteCar()
+        public async void TestDeleteCar()
         {
             // Arrange
             DbcontextCreator.RecreateDatabase();
@@ -95,8 +109,10 @@ namespace CarTest
 
             ICarService service = new CarService(context);
 
+            await Task.Delay(500);
+
             // Act
-            service.RemoveCar(1);
+            await service.RemoveCarAsync(1);
 
             // Assert
             Assert.False(context.Cars.Any());

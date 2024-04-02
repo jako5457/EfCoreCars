@@ -22,7 +22,7 @@ using (CarDbContext context = new CarDbContext())
 {
     ICarService carService = new CarService(context);
 
-    Car car = carService.GetCar(1);
+    Car car = await carService.GetCarAsync(1);
 
     car.Dump();
 }

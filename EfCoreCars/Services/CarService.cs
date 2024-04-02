@@ -19,28 +19,28 @@ namespace EfCoreCars.Services
         //    _Context = context;
         //}
 
-        public Car? GetCar(int id)
+        public async Task<Car?> GetCarAsync(int id)
         {
-            return _context.Cars.AsNoTracking()
+            return await _context.Cars.AsNoTracking()
                                 .Where(c => c.CarIdentifer == id)
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync();
         }
 
-        public List<Car> GetCars()
+        public async Task<List<Car>> GetCarsAsync()
         {
-           return _context.Cars.AsNoTracking().ToList();
+           return await _context.Cars.AsNoTracking().ToListAsync();
         }
 
-        public Car CreateCar(Car car)
+        public async Task<Car> CreateCarAsync(Car car)
         {
             _context.Cars.Add(car);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return car;
         }
 
-        public Car UpdateCar(Car car)
+        public async Task<Car> UpdateCarAsync(Car car)
         {
             var CarToBeChanged = _context.Cars.Where(c => c.CarIdentifer == car.CarIdentifer).FirstOrDefault();
 
@@ -48,18 +48,18 @@ namespace EfCoreCars.Services
             CarToBeChanged.ManufacturerId = car.ManufacturerId;
             CarToBeChanged.Consumption = car.Consumption;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return car;
         }
 
-        public void RemoveCar(int id)
+        public async Task RemoveCarAsync(int id)
         {
             var Car = _context.Cars.Where(c => c.CarIdentifer == id).FirstOrDefault();
 
             _context.Cars.Remove(Car);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
     }
